@@ -1,0 +1,26 @@
+id: default
+groups: {}
+comments: []
+routes:
+  - id: 39jc4c
+    name: GreyNoise Enrichment for PAN Traffic
+    final: true
+    disabled: false
+    pipeline: GreyNoise_Enrichment_for_PAN_traffic-v1
+    description: example palo enrichment IPv4 on 'src' field
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: _raw.includes(' panw') && _raw.includes('TRAFFIC')
+    output: default
+  - id: default
+    name: default
+    final: true
+    disabled: true
+    pipeline: main
+    description: ""
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: "true"
+    output: default

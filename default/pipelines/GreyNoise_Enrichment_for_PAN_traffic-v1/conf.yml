@@ -1,0 +1,114 @@
+output: default
+streamtags: []
+groups:
+  QzLA4N:
+    name: IPv4 GreyNoise Enrichment Method
+    description: Searches Redis for IPv4 keys, maps redis result to 'malicious' field.
+    index: 2
+    disabled: false
+asyncFuncTimeout: 1000
+functions:
+  - id: drop
+    filter: "!_raw.includes(' panw') && !_raw.includes('TRAFFIC')"
+    disabled: null
+    conf: {}
+    description: Drop any log that is not PAN log
+    final: true
+  - id: serde
+    filter: "true"
+    disabled: null
+    conf:
+      mode: extract
+      type: csv
+      srcField: _raw
+      fields:
+        - future_use_0
+        - receive_time
+        - serial_number
+        - type
+        - threat_content_type
+        - future_use_1
+        - generated_time
+        - source_ip
+        - destination_ip
+        - nat_source_ip
+        - nat_destination_ip
+        - rule_name
+        - source_user
+        - destination_user
+        - application
+        - virtual_system
+        - source_zone
+        - destination_zone
+        - inbound_interface
+        - outbound_interface
+        - log_action
+        - future_use_2
+        - session_id
+        - repeat_count
+        - source_port
+        - destination_port
+        - nat_source_port
+        - nat_destination_port
+        - flags
+        - protocol
+        - action
+        - bytes
+        - bytes_sent
+        - bytes_received
+        - packets
+        - start_time
+        - elapsed_time
+        - category
+        - future_use_3
+        - sequence_number
+        - action_flags
+        - source_location
+        - destination_location
+        - future_use_4
+        - packets_sent
+        - packets_received
+        - session_end_reason
+        - device_group_hierarchy_level_1
+        - device_group_hierarchy_level_2
+        - device_group_hierarchy_level_3
+        - device_group_hierarchy_level_4
+        - virtual_system_name
+        - device_name
+        - action_source
+        - source_vm_uuid
+        - destination_vm_uuid
+        - tunnel_id_imsi
+        - monitor_tag_imei
+        - parent_session_id
+        - parent_start_time
+        - tunnel_type
+        - sctp_association_id
+        - sctp_chunks
+        - sctp_chunks_sent
+        - sctp_chunks_received
+    description: Create KV Pairs at root of event
+  - id: comment
+    filter: "true"
+    disabled: false
+    conf:
+      comment: The return value from Redis for GreyNoise result can be Malicious,
+        Unknown, or Benign or 'null'. If none that means we have no result from
+        GreyNoise API in redis. This return value can be used in a filter.
+    groupId: QzLA4N
+  - id: redis
+    filter: "true"
+    disabled: false
+    conf:
+      commands:
+        - outField: malicious
+          command: get
+          keyExpr: source_ip
+      deploymentType: standalone
+      authType: none
+      maxBlockSecs: 60
+      textSecret: redis2
+      url: "'redis://10.5.1.33:6379'"
+    description: Enriches an IPv4 value from `src` field in Redis
+    groupId: QzLA4N
+description: Enriches PAN Traffic Logs against Greynoise Intel

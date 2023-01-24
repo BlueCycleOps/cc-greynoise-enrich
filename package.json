@@ -1,0 +1,1 @@
+{"name":"cc-greynoise-enrich","version":"0.1.5","minLogStreamVersion":"4.0.3","author":"Blue Cycle LLC","description":"Leverage Greynoise Intel via Redis to enrich events in Stream","displayName":"cc-greynoise-enrich","tags":{"streamtags":["Greynoise","Redis","BlueCycle","Security"],"useCase":["enrichment"],"dataType":["logs"],"technology":["paloalto"]}}
