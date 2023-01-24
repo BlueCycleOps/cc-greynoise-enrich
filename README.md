@@ -42,8 +42,11 @@ One could use a similar redis function to enrich any IP address in an event and 
 
 ## Release Notes
 
+### Version 0.1.5 - 2023-01-24
+- Fix findings for pack approval
+
 ### Version 0.1.3 - 2022-12-20
-Initial public release for performance and QA testing.
+- Initial public release for performance and QA testing.
 
 
 
