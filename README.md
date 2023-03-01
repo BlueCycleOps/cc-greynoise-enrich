@@ -5,24 +5,24 @@ This pack compliments the `greynoise-redis-docker` solution by Blue Cycle to enr
 
 This pack is a collaboration between [Cribl](https://cribl.io), [Blue Cycle](https://www.bluecycle.net) and [GreyNoise](https://www.greynoise.io). 
 
-This pack currently supports a single node redis cluster that is already running and populated with GreyNoise data. More info `here`.
+This pack currently supports a single node redis cluster that is already running and populated with GreyNoise data. More info [here](https://docs.cribl.io/stream/redis-function).
 
 ## Requirements Section
 
 Before you begin, ensure that you have met the following requirements:
 
-* You need a GreyNoise license that provides threat intel export and the associated software package that can populate redis from the GreyNoise API.
+* You need a GreyNoise API Key with appropriate license that includes approved FEED support, and the associated software package that can populate redis from the GreyNoise API.
 * An event with an IP address to enrich.
-* The IP address, port, and admin secret for your redis instance
+* The IP address, port, and admin secret for your redis instance.
 
 ## WARNING
-* When using Redis functions in a pack, if redis is not available then your pipeline will time out and may affect Cribl performance.
-* In order to authenticate to your redis instance as described below, you will need to configure a `user` or `admin` secret as a text secret in Stream, then select that secret in the redis function's authentication section. Info on Secrets [here](https://docs.cribl.io/stream/securing-and-monitoring/#accessing-secrets). Info on Redis Authentication in Stream [here](https://docs.cribl.io/stream/redis-function#authentication-method). Authentication is current disabled in the sample piplines.
+* When using Redis functions in a pack, if redis is not available, your pipeline will time out and may affect Cribl performance.
+* In order to authenticate to your redis instance as described below, you will need to configure a `user` or `admin` secret as a text secret in Stream, then select that secret in the redis function's authentication section. Info on Secrets [here](https://docs.cribl.io/stream/securing-and-monitoring/#accessing-secrets). Info on Redis Authentication in Stream [here](https://docs.cribl.io/stream/redis-function#authentication-method). Authentication is currently disabled in the sample pipelines.
 
 
 ## Redis Setup
 
-For each redis function, setup the following:
+For each redis function, set up the following:
 * filter
 ** Lookup: Result field: `ex: malicious` (the field to write intel lookup result), Command: get, Key: event field you are looking up, Args (not required)
 * Redis URL: redis://10.10.10.5:6379 (redis://<IP>:<port>)
