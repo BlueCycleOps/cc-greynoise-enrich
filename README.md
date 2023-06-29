@@ -25,7 +25,7 @@ Before you begin, ensure that you have met the following requirements:
 For each redis function, set up the following:
 * filter
 ** Lookup: Result field: `ex: malicious` (the field to write intel lookup result), Command: get, Key: event field you are looking up, Args (not required)
-* Redis URL: redis://10.10.10.5:6379 (redis://<IP>:<port>)
+* Redis URL: redis://10.10.10.5:6379 (redis://<IP>:<port>) (use `redis://10.10.10.5:6379` for TLS)
 * Secret: redis admin/user account secret
 More info on setting up redis functions can be found in the Cribl Stream docs [here](https://docs.cribl.io/stream/redis-function)
 
